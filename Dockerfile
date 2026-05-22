@@ -1,10 +1,12 @@
 FROM nginx:alpine
 
-ENV PORT=8080
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/40-log-urls.sh /docker-entrypoint.d/40-log-urls.sh
+RUN chmod +x /docker-entrypoint.d/40-log-urls.sh
 
-COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
 COPY . /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
