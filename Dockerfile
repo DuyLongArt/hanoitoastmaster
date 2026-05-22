@@ -1,18 +1,21 @@
-FROM nginx:alpine
+# ---- Build stage ----
+# Build the React app with Node, output static files to /app/dist.
+FROM node:22-alpine AS build
+WORKDIR /app
 
+# Copy lockfile separately so `npm install` is cached when only source changes.
+COPY package.json package-lock.json* ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# ---- Runtime stage ----
+# Serve the built static files with nginx.
+FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY nginx/40-log-urls.sh /docker-entrypoint.d/40-log-urls.sh
-RUN chmod +x /docker-entrypoint.d/40-log-urls.sh
-
-COPY . /usr/share/nginx/html/
-
-# Map legacy paths referenced in CSS to files we actually have
-RUN mkdir -p assets/fonts fonts home/images/about home/images/footer home/images/hot-job www/fonts \
-    && cp www/about-us-home.webp home/images/about/about-us-home.webp \
-    && cp www/footer-login-bg-2.png home/images/footer/footer-login-bg.png \
-    && cp www/footer-login-bg-2.png home/images/hot-job/hot-job-bg.png
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]

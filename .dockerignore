@@ -1,5 +1,11 @@
 .git
 .github
-nginx
-Dockerfile
-.dockerignore
+.vite
+dist
+dist-ssr
+node_modules
+legacy
+*.local
+.env
+.env.local
+.DS_Store
