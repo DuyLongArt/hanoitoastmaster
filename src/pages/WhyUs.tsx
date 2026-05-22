@@ -2,10 +2,7 @@
 // Pattern: mảng data → .map() ra <ReasonCard/>.
 // Đổi ảnh: chỉ cần thay path trong field `image`.
 
-type Reason = {
-  image: string;
-  title: string;
-};
+import { ReasonCard, type Reason } from "../components/ReasonCard";
 
 const reasons: Reason[] = [
   { image: "/images/photos/club-01.jpg", title: "Cải thiện kỹ năng giao tiếp" },
@@ -39,22 +36,5 @@ export default function WhyUs() {
         </div>
       </div>
     </section>
-  );
-}
-
-function ReasonCard({ image, title }: Reason) {
-  return (
-    <article className="bg-white rounded-xl overflow-hidden hover:shadow-md transition">
-      <div className="aspect-video overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover hover:scale-105 transition duration-500"
-        />
-      </div>
-      <h3 className="font-medium text-slate-700 text-center text-sm px-4 py-4">
-        {title}
-      </h3>
-    </article>
   );
 }

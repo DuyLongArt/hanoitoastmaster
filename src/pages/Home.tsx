@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { AnimateIn } from "../components/AnimateIn";
+import { ReasonCard } from "../components/ReasonCard";
 import { CLUB } from "../lib/constants";
 
 // Trang chủ — gồm nhiều section, mỗi section là 1 component nhỏ.
@@ -240,23 +241,14 @@ function WhyChoosePreview() {
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           {reasons.map((r, i) => (
             <AnimateIn key={r.title} animation="scale-in" delay={i * 120}>
-              <div className="bg-white rounded-xl overflow-hidden hover-lift h-full">
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={r.image}
-                    alt={r.title}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-                <h3 className="font-medium text-slate-700 px-4 py-4">{r.title}</h3>
-              </div>
+              <ReasonCard {...r} />
             </AnimateIn>
           ))}
         </div>
         <AnimateIn delay={200}>
           <Link
             to="/vi-sao"
-            className="inline-block mt-8 text-brand font-medium hover:underline transition-all hover:translate-x-1"
+            className="inline-block mt-8 border-2 border-brand text-brand px-6 py-3 rounded-lg font-medium hover:bg-brand hover:text-white hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Xem đầy đủ 7 lý do →
           </Link>
