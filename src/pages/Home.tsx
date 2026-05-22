@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { AnimateIn } from "../components/AnimateIn";
 import { CLUB } from "../lib/constants";
 
 // Trang chủ — gồm nhiều section, mỗi section là 1 component nhỏ.
@@ -22,24 +23,37 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="bg-gradient-to-b from-brand-light via-brand to-brand-dark text-white">
-      <div className="max-w-7xl mx-auto px-4 py-24 md:py-32 flex flex-col items-center text-center">
-        <img
-          src="/images/logo_hanoitoastmasters.jpg"
-          alt="Hanoi Toastmasters logo"
-          className="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg mb-6"
-        />
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+    <section className="relative overflow-hidden bg-gradient-to-b from-brand-light via-brand to-brand-dark text-white bg-[length:200%_200%] animate-gradient-shift">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.12),transparent_60%)] pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-4 py-24 md:py-32 flex flex-col items-center text-center">
+        <div className="mb-6 animate-scale-in">
+          <img
+            src="/images/logo_hanoitoastmasters.jpg"
+            alt="Hanoi Toastmasters logo"
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg animate-float-gentle"
+            style={{ animationDelay: "0.9s" }}
+          />
+        </div>
+        <h1
+          className="text-4xl md:text-6xl font-bold tracking-tight animate-fade-in-up"
+          style={{ animationDelay: "120ms" }}
+        >
           Hanoi Toastmasters
         </h1>
-        <p className="mt-4 text-lg md:text-xl opacity-90 max-w-2xl">
+        <p
+          className="mt-4 text-lg md:text-xl opacity-90 max-w-2xl animate-fade-in-up"
+          style={{ animationDelay: "240ms" }}
+        >
           Where Leaders Are Made — Cùng nhau rèn luyện kỹ năng nói trước công
           chúng và lãnh đạo trong một cộng đồng thân thiện.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3 justify-center">
+        <div
+          className="mt-8 flex flex-wrap gap-3 justify-center animate-fade-in-up"
+          style={{ animationDelay: "360ms" }}
+        >
           <Link
             to="/ve-chung-toi"
-            className="bg-white text-brand px-6 py-3 rounded-lg font-medium hover:opacity-90 transition"
+            className="bg-white text-brand px-6 py-3 rounded-lg font-medium hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Tìm hiểu thêm
           </Link>
@@ -47,7 +61,7 @@ function Hero() {
             href={CLUB.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="border-2 border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-brand transition"
+            className="border-2 border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-brand hover:scale-105 active:scale-95 transition-all duration-300"
           >
             Tham gia ngay
           </a>
@@ -60,7 +74,7 @@ function Hero() {
 function About() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
-      <div className="text-center">
+      <AnimateIn className="text-center">
         <h2 className="text-3xl font-bold text-brand uppercase tracking-wide">
           Về chúng tôi
         </h2>
@@ -69,14 +83,14 @@ function About() {
           International, nơi mọi người cùng nhau luyện tập kỹ năng giao tiếp
           và lãnh đạo qua các buổi sinh hoạt thực hành.
         </p>
-      </div>
-      <div className="mt-10 rounded-2xl overflow-hidden shadow-md max-w-4xl mx-auto">
+      </AnimateIn>
+      <AnimateIn animation="scale-in" delay={150} className="mt-10 rounded-2xl overflow-hidden shadow-md max-w-4xl mx-auto">
         <img
           src="/images/photos/club-15.jpg"
           alt="Thành viên Hanoi Toastmasters"
-          className="w-full"
+          className="w-full hover:scale-[1.02] transition-transform duration-700"
         />
-      </div>
+      </AnimateIn>
     </section>
   );
 }
@@ -97,17 +111,23 @@ function CoreValues() {
     <section className="bg-slate-50 py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {coreValues.map((v) => (
-            <div
+          {coreValues.map((v, i) => (
+            <AnimateIn
               key={v.title}
-              className="bg-white rounded-xl p-5 text-center hover:shadow-md transition"
+              animation="fade-in-up"
+              delay={i * 80}
+              className="h-full"
             >
-              <div className="text-3xl">{v.icon}</div>
-              <h3 className="mt-2 font-semibold text-brand text-sm">
-                {v.title}
-              </h3>
-              <p className="mt-1 text-xs text-slate-500">{v.description}</p>
-            </div>
+              <div className="bg-white rounded-xl p-5 text-center hover-lift h-full group">
+                <div className="text-3xl transition-transform duration-300 group-hover:scale-110">
+                  {v.icon}
+                </div>
+                <h3 className="mt-2 font-semibold text-brand text-sm">
+                  {v.title}
+                </h3>
+                <p className="mt-1 text-xs text-slate-500">{v.description}</p>
+              </div>
+            </AnimateIn>
           ))}
         </div>
       </div>
@@ -152,34 +172,47 @@ function Activities() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-bold text-brand uppercase tracking-wide text-center">
-        Sinh hoạt định kì tại CLB
-      </h2>
-      <div className="mt-10 grid md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-sm p-6">
+      <AnimateIn className="text-center">
+        <h2 className="text-3xl font-bold text-brand uppercase tracking-wide">
+          Sinh hoạt định kì tại CLB
+        </h2>
+      </AnimateIn>
+      <AnimateIn delay={100} className="mt-10 grid md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-sm p-6 hover-lift">
         {/* Cột trái: danh sách tab */}
         <ul className="space-y-2">
           {tabs.map((tab, i) => (
             <li key={tab.title}>
               <button
                 onClick={() => setActive(i)}
-                className={`w-full text-left px-4 py-3 rounded-lg transition flex justify-between items-center ${
+                className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 flex justify-between items-center ${
                   active === i
-                    ? "bg-brand text-white"
-                    : "hover:bg-slate-100 text-slate-700"
+                    ? "bg-brand text-white shadow-md scale-[1.02]"
+                    : "hover:bg-slate-100 text-slate-700 hover:translate-x-1"
                 }`}
               >
                 <span>{tab.title}</span>
-                {active === i && <span>→</span>}
+                <span
+                  className={`transition-transform duration-300 ${
+                    active === i ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-2"
+                  }`}
+                >
+                  →
+                </span>
               </button>
             </li>
           ))}
         </ul>
 
-        {/* Cột phải: nội dung tab đang chọn */}
-        <div className="bg-slate-50 rounded-xl p-6 flex items-center">
-          <p className="text-slate-700 leading-relaxed">{tabs[active].body}</p>
+        {/* Cột phải: nội dung tab đang chọn — key={active} để React chạy lại animation */}
+        <div className="bg-slate-50 rounded-xl p-6 flex items-center min-h-[12rem]">
+          <p
+            key={active}
+            className="text-slate-700 leading-relaxed animate-fade-in"
+          >
+            {tabs[active].body}
+          </p>
         </div>
-      </div>
+      </AnimateIn>
     </section>
   );
 }
@@ -195,36 +228,39 @@ function WhyChoosePreview() {
   return (
     <section className="bg-slate-50 py-16">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-brand uppercase tracking-wide">
-          Vì sao nên chọn Hanoi Toastmasters
-        </h2>
-        <p className="mt-4 text-slate-600 max-w-3xl mx-auto">
-          Trở thành thành viên Toastmasters mang lại nhiều lợi ích cho phát
-          triển bản thân và sự nghiệp.
-        </p>
+        <AnimateIn>
+          <h2 className="text-3xl font-bold text-brand uppercase tracking-wide">
+            Vì sao nên chọn Hanoi Toastmasters
+          </h2>
+          <p className="mt-4 text-slate-600 max-w-3xl mx-auto">
+            Trở thành thành viên Toastmasters mang lại nhiều lợi ích cho phát
+            triển bản thân và sự nghiệp.
+          </p>
+        </AnimateIn>
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {reasons.map((r) => (
-            <div
-              key={r.title}
-              className="bg-white rounded-xl overflow-hidden hover:shadow-md transition"
-            >
-              <div className="aspect-video overflow-hidden">
-                <img
-                  src={r.image}
-                  alt={r.title}
-                  className="w-full h-full object-cover hover:scale-105 transition duration-500"
-                />
+          {reasons.map((r, i) => (
+            <AnimateIn key={r.title} animation="scale-in" delay={i * 120}>
+              <div className="bg-white rounded-xl overflow-hidden hover-lift h-full">
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={r.image}
+                    alt={r.title}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                  />
+                </div>
+                <h3 className="font-medium text-slate-700 px-4 py-4">{r.title}</h3>
               </div>
-              <h3 className="font-medium text-slate-700 px-4 py-4">{r.title}</h3>
-            </div>
+            </AnimateIn>
           ))}
         </div>
-        <Link
-          to="/vi-sao"
-          className="inline-block mt-8 text-brand font-medium hover:underline"
-        >
-          Xem đầy đủ 7 lý do →
-        </Link>
+        <AnimateIn delay={200}>
+          <Link
+            to="/vi-sao"
+            className="inline-block mt-8 text-brand font-medium hover:underline transition-all hover:translate-x-1"
+          >
+            Xem đầy đủ 7 lý do →
+          </Link>
+        </AnimateIn>
       </div>
     </section>
   );
@@ -234,7 +270,7 @@ function AboutToastmasters() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
       <div className="grid md:grid-cols-2 gap-10 items-center">
-        <div>
+        <AnimateIn animation="slide-in-left">
           <h2 className="text-3xl font-bold text-brand uppercase tracking-wide">
             Về Toastmasters
           </h2>
@@ -248,14 +284,16 @@ function AboutToastmasters() {
             thành viên khác, và tham gia vào các vai trò khác nhau trong buổi
             họp để phát triển kỹ năng lãnh đạo.
           </p>
-        </div>
-        <div className="rounded-2xl overflow-hidden shadow-md">
-          <img
-            src="/images/photos/pathway.jpg"
-            alt="Toastmasters Pathways"
-            className="w-full"
-          />
-        </div>
+        </AnimateIn>
+        <AnimateIn animation="slide-in-right" delay={120}>
+          <div className="rounded-2xl overflow-hidden shadow-md hover-lift">
+            <img
+              src="/images/photos/pathway.jpg"
+              alt="Toastmasters Pathways"
+              className="w-full hover:scale-[1.02] transition-transform duration-700"
+            />
+          </div>
+        </AnimateIn>
       </div>
     </section>
   );
@@ -265,20 +303,22 @@ function AboutToastmasters() {
 function CTABanner() {
   return (
     <section className="max-w-7xl mx-auto px-4 pb-16">
-      <div className="bg-gradient-to-r from-brand-light to-brand rounded-2xl text-white p-10 md:p-14 text-center shadow-lg">
-        <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">
-          Tìm hiểu thêm
-        </h2>
-        <p className="mt-3 opacity-90 max-w-2xl mx-auto">
-          Đăng ký tham gia buổi sinh hoạt để trải nghiệm trực tiếp.
-        </p>
-        <Link
-          to="/lien-he"
-          className="inline-block mt-6 bg-white text-brand px-6 py-3 rounded-lg font-medium hover:opacity-90 transition"
-        >
-          Đăng ký tham gia buổi sinh hoạt
-        </Link>
-      </div>
+      <AnimateIn animation="scale-in">
+        <div className="bg-gradient-to-r from-brand-light to-brand rounded-2xl text-white p-10 md:p-14 text-center shadow-lg hover-lift bg-[length:200%_200%] hover:animate-gradient-shift">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wide">
+            Tìm hiểu thêm
+          </h2>
+          <p className="mt-3 opacity-90 max-w-2xl mx-auto">
+            Đăng ký tham gia buổi sinh hoạt để trải nghiệm trực tiếp.
+          </p>
+          <Link
+            to="/lien-he"
+            className="inline-block mt-6 bg-white text-brand px-6 py-3 rounded-lg font-medium hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-300"
+          >
+            Đăng ký tham gia buổi sinh hoạt
+          </Link>
+        </div>
+      </AnimateIn>
     </section>
   );
 }
