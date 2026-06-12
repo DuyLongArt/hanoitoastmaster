@@ -62,7 +62,6 @@ function Header() {
     { to: "/vi-sao", label: "Vì sao nên chọn chúng tôi?" },
     { to: "/hoi-dap", label: "Hỏi đáp" },
     { to: "/lien-he", label: "Liên hệ" },
-    { to: "/dang-nhap", label: "Đăng nhập" },
   ];
 
   return (
