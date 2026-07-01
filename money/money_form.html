@@ -126,12 +126,12 @@
             <table id="table" class="table table-sm table-bordered">
                 <tr>
                     <td rowspan="4">
-                        <img src="www/logo_toastmasters.png" width="64"/>
-                        <img src="www/logo_hanoitoastmasters.jpg" width="48" style="border-radius: 2px"/> <br/><br/>
+                        <img src="images/club-logos.png" alt="Toastmasters International &amp; Hanoi Toastmasters"
+                            style="max-width: 140px; height: auto;" /><br/><br/>
                         <h6>Hanoi Toastmasters</h6>
                             Sinh hoạt vào thứ 5, tuần thứ 1 và thứ 3 hàng tháng<br>
                             Từ 19h đến 21h30<br/>
-                            Địa chỉ: Nova 4, 22 Thành Công, Ba Đình, Hà Nội
+                            Địa chỉ: Tầng 7, 74 - Phố Nguyễn Văn Tuyết, Hanoi, Vietnam
                     </td>
                     <td class="time"><b>Thời gian</b></td>
                     <td class="content"><b>Nội dung</b></td>
@@ -168,13 +168,13 @@
                 <tr>
                     <td>
 
-                            <b>Chủ tịch</b> <br>Trần Thuý<br><br>
-                            <b>Phó chủ tịch đào tạo (VPE)</b><br>Quỳnh Chi<br><br>
-                            <b>Phó chủ tịch Thành viên (VPM)</b><br>Xuân Phương<br><br>
-                            <b>Phó chủ tịch Quan hệ công chúng (VPPR) </b><br>Thu Hiền<br><br>
+                            <b>Chủ tịch</b> <br>Quý Công<br><br>
+                            <b>Phó chủ tịch đào tạo (VPE)</b><br>Tiến Đạt<br><br>
+                            <b>Phó chủ tịch Thành viên (VPM)</b><br>Thu Hiền<br><br>
+                            <b>Phó chủ tịch Quan hệ công chúng (VPPR) </b><br>Hương Giang<br><br>
                             <b>Thư ký (Secretary)</b><br>Ngọc Anh<br><br>
-                            <b>Thủ quỹ (Treasurer)</b><br>Viết Chương<br><br>
-                            <b>Hậu cần (SaA - Sergeant at Arms)</b><br>Tuấn Linh
+                            <b>Thủ quỹ (Treasurer)</b><br>Chiến<br><br>
+                            <b>Hậu cần (SaA - Sergeant at Arms)</b><br>Thảo Vy
                     </td>
                     <td class="time">19:10 - 20:00<br>(35&#39;)</td>
                     <td class="content">Thuyết trình chuẩn bị trước<br>
@@ -230,7 +230,9 @@
                     <td class="pic"></td>
                 </tr>
                 <tr>
-                    <td rowspan="5"><img src="qr.jpg" width="100%" /></td>
+                    <td rowspan="5" class="qr-cell">
+                        <img src="images/qr-payment.png" class="qr-image" alt="QR chuyển khoản NGUYEN VIET CHUONG - Techcombank" width="100%" />
+                    </td>
                     <td>20:50 - 21:18<br>(28&#39;)</td>
                     <td>Phản ứng nhanh (Table Topic) <br>
                         - Topicmaster đưa ra câu hỏi : <span id="shdk-topicmaster"></span><br>
@@ -603,7 +605,7 @@
             if (ri === 0) return;
 
             row.querySelectorAll('td').forEach((td, ci) => {
-                if (td.querySelector('img[src="qr.jpg"]')) return;
+                if (td.querySelector('.qr-image') || td.classList.contains('qr-cell')) return;
                 if (td.querySelector('#speaker-intro-list, #speaker-pair-list, #speaker-prepared-list, #speaker-eval-list')) {
                     return;
                 }
