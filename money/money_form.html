@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kịch bản sinh hoạt định kì <span id="shdk-number"></span></title>
+    <style type="text/css" media="print">
+        @page {
+            size: auto;
+            margin: 4mm;
+        }
+
+        @media print {
+            body {
+                visibility: hidden;
+            }
+
+            #print-area {
+                visibility: visible;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+    <style>
+        body {
+            padding: 8px 8px;
+        }
+
+        #title {
+            text-align: center;
+            color: #004165;
+        }
+
+
+        a:link {
+            color: #004165;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        .table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 10px;
+            line-height: normal;
+        }
+
+        .table {
+            border: 1px solid black;
+        }
+
+        .table-bordered>thead>tr>th,
+        .table-bordered>tbody>tr>th,
+        .table-bordered>tfoot>tr>th,
+        .table-bordered>thead>tr>td,
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tfoot>tr>td {
+            border: 1px solid black;
+        }
+
+        .time {
+            width: 15%;
+        }
+
+        .content {
+            width: 60%;
+        }
+
+        .pic {
+            width: 25%;
+        }
+
+        lable {
+            font-weight: 700;
+        }
+
+        .editable-cell {
+            cursor: text;
+            min-height: 1.5em;
+        }
+
+        .editable-cell:hover {
+            background-color: #f0f8ff;
+        }
+
+        .editable-cell:focus {
+            outline: 2px solid #0a5fa0;
+            outline-offset: -2px;
+            background-color: #fff;
+        }
+
+        @media print {
+            .editable-cell {
+                outline: none !important;
+                background: transparent !important;
+            }
+
+            .edit-hint,
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        .speaker-card {
+            background: #f8fafc;
+        }
+
+        .speaker-card + .speaker-card {
+            margin-top: 0.75rem;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row">
+        <div id="print-area" class="col">
+            <h5 id="title"><b>KỊCH BẢN CHƯƠNG TRÌNH<br>SINH HOẠT ĐỊNH KỲ <span id="shdk-number"></span><br><span
+                        id="shdk-subject"></span></b></h5>
+            <table id="table" class="table table-sm table-bordered">
+                <tr>
+                    <td rowspan="4">
+                        <img src="www/logo_toastmasters.png" width="64"/>
+                        <img src="www/logo_hanoitoastmasters.jpg" width="48" style="border-radius: 2px"/> <br/><br/>
+                        <h6>Hanoi Toastmasters</h6>
+                            Sinh hoạt vào thứ 5, tuần thứ 1 và thứ 3 hàng tháng<br>
+                            Từ 19h đến 21h30<br/>
+                            Địa chỉ: Nova 4, 22 Thành Công, Ba Đình, Hà Nội
+                    </td>
+                    <td class="time"><b>Thời gian</b></td>
+                    <td class="content"><b>Nội dung</b></td>
+                    <td class="pic"><b>Phụ trách</b></td>
+                </tr>
+                <tr>
+                    <td class="time">18:55 - 19:05<br>(10&#39;)</td>
+                    <td class="content">Trò chơi khởi động</td>
+                    <td class="pic"><span id="shdk-gamer"> </span> </td>
+                </tr>
+                <tr>
+                    <td class="time" rowspan="2">18:55 - 19:05<br>(10&#39;)</td>
+                    <td class="content">Phát biểu mở đầu chương trình<br>Giới thiệu Toastmaster of the day</td>
+                    <td class="pic">Trần Thuý</td>
+                </tr>
+                <tr>
+                    <td class="time">Giới thiệu các vị trí luân phiên:<br>
+                        - Topicmaster / Người phụ trách phần phản ứng nhanh: <span id="shdk-topicmaster"></span><br>
+                        ---------------<br>
+                        <span id="speaker-intro-list" contenteditable="false"></span>
+                        -----------------<br>
+                        - Timer / Người kiểm soát thời gian: <span id="shdk-timer"></span><br>
+                        - Ah-Counter / Người đếm từ thừa: <span id="shdk-ahcounter"></span><br>
+                        - Grammarian / Người sửa lỗi ngữ pháp: <span id="shdk-grammarian"></span><br>
+                    </td>
+                    <td class="pic">
+                        ToD: <span id="shdk-tod"></span><br>
+                        Timer: <span id="shdk-timer"></span><br>
+                        AhCounter: <span id="shdk-ahcounter"></span><br>
+                        Grammarian: <span id="shdk-grammarian"></span><br>
+                        <span id="speaker-pair-list" contenteditable="false"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                            <b>Chủ tịch</b> <br>Trần Thuý<br><br>
+                            <b>Phó chủ tịch đào tạo (VPE)</b><br>Quỳnh Chi<br><br>
+                            <b>Phó chủ tịch Thành viên (VPM)</b><br>Xuân Phương<br><br>
+                            <b>Phó chủ tịch Quan hệ công chúng (VPPR) </b><br>Thu Hiền<br><br>
+                            <b>Thư ký (Secretary)</b><br>Ngọc Anh<br><br>
+                            <b>Thủ quỹ (Treasurer)</b><br>Viết Chương<br><br>
+                            <b>Hậu cần (SaA - Sergeant at Arms)</b><br>Tuấn Linh
+                    </td>
+                    <td class="time">19:10 - 20:00<br>(35&#39;)</td>
+                    <td class="content">Thuyết trình chuẩn bị trước<br>
+                        <span id="speaker-prepared-list" contenteditable="false"></span>
+                        - Đánh giá về thời gian, từ thừa và ngữ pháp<br>
+                        - Bình chọn Bài thuyết trình được yêu thích
+                    </td>
+                    <td class="pic">
+                        ToD: <span id="shdk-tod"></span><br>
+                        Ban đánh giá: <br>
+                        Timer: <span id="shdk-timer"></span><br>
+                        Ahcounter: <span id="shdk-ahcounter"></span><br>
+                        Grammarian: <span id="shdk-grammarian"></span><br>
+                        Khán giả
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><b>Sứ mệnh của CLB</b> <br>
+                        Chúng tôi cung cấp trải nghiệm học tập chung tích cực và khích lệ mà ở đó, mỗi thành viên có cơ
+                        hội phát triển kĩ năng giao tiếp, kĩ năng lãnh đạo, từ đó thúc đẩy sự tự tin và sự trưởng thành
+                        của mỗi hội viên. </td>
+                    <td class="time">20:00 - 20:10<br>(10&#39;)</td>
+                    <td class="content">Teabreak</td>
+                    <td class="pic"></td>
+
+                </tr>
+                <tr>
+                    <td class="time">20:10 - 20:15<br>(5&#39;)</td>
+                    <td class="content">VPM giao lưu khách mời</td>
+                    <td class="pic">Xuân Phương</td>
+                </tr>
+                <tr>
+                    <td class="time">20:15 - 20:45<br>(30.5&#39;)</td>
+                    <td class="content">Đánh giá phần thuyết trình chuẩn bị trước<br>
+                        <span id="speaker-eval-list" contenteditable="false"></span>
+                        - Đánh giá thời gian, từ thừa và ngữ pháp<br>
+                        - Bình chọn Bài đánh giá được yêu thích</td>
+                    <td class="pic">
+                        ToD: <span id="shdk-tod"></span><br>
+                        Ban đánh giá:
+                        <br>Timer: <span id="shdk-timer"></span><br>
+                        Ahcounter: <span id="shdk-ahcounter"></span><br>
+                        Grammarian:<span id="shdk-grammarian"></span><br>
+                        Khán giả
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Fan Page của CLB:</b><br><a
+                            href="https://www.fb.com/hanoi.toastmasters.club/">https://fb.com/hanoi.toastmasters.club/</a>
+                    </td>
+                    <td class="time">20:45 - 20:50<br>(5&#39;)</td>
+                    <td class="content"> Nghỉ giải lao / Hoạt động kết nối</td>
+                    <td class="pic"></td>
+                </tr>
+                <tr>
+                    <td rowspan="5"><img src="qr.jpg" width="100%" /></td>
+                    <td>20:50 - 21:18<br>(28&#39;)</td>
+                    <td>Phản ứng nhanh (Table Topic) <br>
+                        - Topicmaster đưa ra câu hỏi : <span id="shdk-topicmaster"></span><br>
+                        - Các speakers trả lời <br>
+                        - Đánh giá về thời gian<br>
+                        - Bình chọn Bài trả lời phản ứng nhanh được yêu thích
+                    </td>
+                    <td class="pic">
+                        Ban đánh giá:
+                        <br>Timer: <span id="shdk-timer"></span>
+                        <br>Đánh giá PƯN: <span id="shdk-evatopicmaster"></span><br/>
+                        Khán giả
+                    </td>
+                </tr>
+                <tr>
+                    <td class="time">21:18 - 21:23<br>(5&#39;)</td>
+                    <td class="content">Người đánh giá tổng quan GE</td>
+                    <td class="pic"><span id="shdk-ge"></span></td>
+                </tr>
+                <tr>
+                    <td class="time">21:23 - 21:28<br>(5&#39;)</td>
+                    <td class="content">VPM giao lưu khách mời </td>
+                    <td class="pic">Xuân Phương</td>
+                </tr>
+                <tr>
+                    <td class="time">21:28 - 21:37<br>(9&#39;)</td>
+                    <td class="content">Tổng kết: <br>- Trao Bằng chứng nhận</td>
+                    <td class="pic">ToD: <span id="shdk-tod"></span><br>Chủ tích: Trần Thuý</td>
+                </tr>
+                <tr>
+                    <td class="time">21:37 - 21:40<br>(3&#39;)</td>
+                    <td class="content">Kết thúc, chụp ảnh, giao lưu thành viên và khách mời tự do</td>
+                    <td class="pic"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col pl-2">
+            <div class="card card-primary">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">Sinh hoạt định kì</h5>
+                    <button class="btn btn-sm btn-primary" onclick="onSHDKChanged()">Làm mới</button>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="fw-bold">Sinh hoạt định kì số</label>
+                            <select class="form-control form-control-sm" id="select-number" onchange="onSHDKChanged()">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="fw-bold" for="input-subject">Chủ đề</label>
+                            <input type="text" class="form-control form-control-sm" id="input-subject"
+                                onkeydown="onSubjectChanged()">
+                        </div>
+                        <div class="form-group">
+                            <label class="fw-bold" for="input-tod">Điều phối chương trình - Toastmasters of
+                                the Day (ToD)</label>
+                            <input type="text" class="form-control  form-control-sm" id="input-tod">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-gamer">Quản trò</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-gamer">
+                            </div>
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-timer">Quản lí thời gian - Timer</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-timer">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-ahcounter">Đếm từ thừa - Ah Counter</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-ahcounter">
+                            </div>
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-grammarian">Soát lỗi ngữ pháp -
+                                    Grammarian</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-grammarian">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-topicmaster">Điều phối Phản ứng nhanh -
+                                    Topicmaster</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-topicmaster">
+                            </div>
+                            <div class="form-group col">
+                                <label class="fw-bold" for="input-evatopicmaster">Đánh giá phản ứng nhanh</label>
+                                <input type="text" class="form-control  form-control-sm" id="input-evatopicmaster">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="fw-bold" for="input-ge">Đánh giá tổng quát - General Evaluator
+                                (GE)</label>
+                            <input type="text" class="form-control  form-control-sm" id="input-ge">
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
+                            <label class="fw-bold mb-0">Người thuyết trình</label>
+                            <button type="button" class="btn btn-sm btn-success no-print" onclick="addSpeaker()">+
+                                Thêm người nói</button>
+                        </div>
+                        <div id="speakers-form-container"></div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer d-flex gap-2 flex-wrap">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="window.print()">In kịch
+                            bản</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary no-print"
+                            onclick="resetTableEdits()">Đặt lại bảng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script src="shdk.js"></script>
+
+<script>
+    window.onload = async function () {
+        // Danh sách các hàm onchange tương ứng với các input
+        const onchangeHandlers = {
+            'input-subject': onSubjectChanged,
+            'input-tod': onToDChanged,
+            'input-gamer': onGamerChanged,
+            'input-timer': onTimerChanged,
+            'input-ahcounter': onAhCounterChanged,
+            'input-grammarian': onGrammarianChanged,
+            'input-topicmaster': onTopicmasterChanged,
+            'input-evatopicmaster': onEvaTopicmasterChanged,
+            'input-ge': onGEChanged,
+        };
+
+        // Thêm sự kiện onchange cho từng input
+        for (const id in onchangeHandlers) {
+            const inputElement = document.getElementById(id);
+            if (inputElement) {
+                inputElement.addEventListener('change', function () {
+                    console.log(`Saving ${id} with value: ${this.value}`);
+                    onchangeHandlers[id](this.value);
+                });
+            }
+        }
+
+        // Khôi phục dữ liệu từ LocalStorage
+        for (const id in onchangeHandlers) {
+            console.log(localStorage.getItem(id.substring(6)));
+            const savedValue = localStorage.getItem(id.substring(6));
+            if (savedValue) {
+                const inputElement = document.getElementById(id);
+                if (inputElement && !inputElement.value) {
+                    console.log(`Restoring ${id} with value: ${savedValue}`);
+                    inputElement.value = savedValue;
+                    onchangeHandlers[id](savedValue); // Gọi hàm để cập nhật giao diện
+                }
+            }
+        }
+
+        loadSpeakers();
+        renderSpeakers();
+
+        await getAllSHDK();
+
+        // Tìm SHDK gần nhất
+        const closestSHDK = findClosestSHDK();
+
+        $.each(shdks, function (i, item) {
+            $('#select-number').append($('<option>', {
+                value: JSON.stringify(item),
+                text: `${item.shdk}: ${changeDateFormat(item.time)}`,
+                selected: item.shdk === closestSHDK.shdk // Tự động chọn SHDK gần nhất
+            }));
+        });
+
+        onSHDKChanged();
+        initEditableTable();
+    };
+
+    const TABLE_STORAGE_KEY = 'money_form_table_v1';
+    const SPEAKERS_STORAGE_KEY = 'money_form_speakers_v1';
+    const MIN_SPEAKERS = 1;
+    const MAX_SPEAKERS = 8;
+
+    let speakers = [];
+
+    function emptySpeaker() {
+        return { speaker: '', eva: '', project: '', speakname: '' };
+    }
+
+    function loadSpeakers() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(SPEAKERS_STORAGE_KEY) || 'null');
+            if (Array.isArray(saved) && saved.length >= MIN_SPEAKERS) {
+                speakers = saved.map(s => ({ ...emptySpeaker(), ...s }));
+                return;
+            }
+        } catch (e) { /* ignore */ }
+
+        speakers = Array.from({ length: 4 }, emptySpeaker);
+
+        for (let i = 1; i <= 4; i++) {
+            speakers[i - 1] = {
+                speaker: localStorage.getItem(`speaker${i}`) || '',
+                eva: localStorage.getItem(`eva${i}`) || '',
+                project: localStorage.getItem(`project${i}`) || '',
+                speakname: localStorage.getItem(`speakname${i}`) || '',
+            };
+        }
+    }
+
+    function saveSpeakers() {
+        localStorage.setItem(SPEAKERS_STORAGE_KEY, JSON.stringify(speakers));
+        speakers.forEach((s, i) => {
+            const n = i + 1;
+            localStorage.setItem(`speaker${n}`, s.speaker);
+            localStorage.setItem(`eva${n}`, s.eva);
+            localStorage.setItem(`project${n}`, s.project);
+            localStorage.setItem(`speakname${n}`, s.speakname);
+        });
+    }
+
+    function escHtml(text) {
+        return String(text || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function renderSpeakerTableSections() {
+        const intro = document.getElementById('speaker-intro-list');
+        const pairs = document.getElementById('speaker-pair-list');
+        const prepared = document.getElementById('speaker-prepared-list');
+        const evals = document.getElementById('speaker-eval-list');
+
+        intro.innerHTML = speakers.map((s, i) =>
+            `- Speaker ${i + 1} / Người thuyết trình ${i + 1}: ${escHtml(s.speaker)}`
+        ).join('<br>');
+
+        pairs.innerHTML = speakers.map((s, i) =>
+            `S${i + 1}-E${i + 1}: ${escHtml(s.speaker)} - ${escHtml(s.eva)}`
+        ).join('<br>');
+
+        prepared.innerHTML = speakers.map((s, i) =>
+            `- Thuyết trình ${i + 1}: ${escHtml(s.project)}<br>Tên bài nói: ${escHtml(s.speakname)}<br> <br>`
+        ).join('');
+
+        evals.innerHTML = speakers.map((s, i) =>
+            `- Đánh giá phần thuyết trình ${i + 1}: ${escHtml(s.eva)}`
+        ).join('<br>');
+    }
+
+    function renderSpeakersForm() {
+        const container = document.getElementById('speakers-form-container');
+        container.innerHTML = speakers.map((s, i) => `
+            <div class="speaker-card border rounded p-2 mb-2" data-index="${i}">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <strong>Người nói ${i + 1}</strong>
+                    <button type="button" class="btn btn-sm btn-outline-danger no-print"
+                        onclick="removeSpeaker(${i})"
+                        ${speakers.length <= MIN_SPEAKERS ? 'disabled' : ''}>Xóa</button>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label class="small fw-bold">Người nói</label>
+                        <input type="text" class="form-control form-control-sm speaker-field"
+                            data-index="${i}" data-field="speaker" value="${escHtml(s.speaker)}">
+                    </div>
+                    <div class="form-group col">
+                        <label class="small fw-bold">Người đánh giá</label>
+                        <input type="text" class="form-control form-control-sm speaker-field"
+                            data-index="${i}" data-field="eva" value="${escHtml(s.eva)}">
+                    </div>
+                </div>
+                <div class="form-group mt-1">
+                    <label class="small fw-bold">Dự án</label>
+                    <textarea class="form-control form-control-sm speaker-field" rows="1"
+                        data-index="${i}" data-field="project">${escHtml(s.project)}</textarea>
+                </div>
+                <div class="form-group mt-1">
+                    <label class="small fw-bold">Tên bài nói</label>
+                    <textarea class="form-control form-control-sm speaker-field" rows="1"
+                        data-index="${i}" data-field="speakname">${escHtml(s.speakname)}</textarea>
+                </div>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('.speaker-field').forEach(el => {
+            el.addEventListener('input', onSpeakerFieldInput);
+            el.addEventListener('change', onSpeakerFieldInput);
+        });
+    }
+
+    function onSpeakerFieldInput(e) {
+        const el = e.target;
+        const i = Number(el.dataset.index);
+        const field = el.dataset.field;
+        if (!speakers[i] || !field) return;
+        speakers[i][field] = el.value;
+        saveSpeakers();
+        renderSpeakerTableSections();
+    }
+
+    function renderSpeakers() {
+        renderSpeakersForm();
+        renderSpeakerTableSections();
+    }
+
+    function addSpeaker() {
+        if (speakers.length >= MAX_SPEAKERS) {
+            alert(`Tối đa ${MAX_SPEAKERS} người nói.`);
+            return;
+        }
+        speakers.push(emptySpeaker());
+        saveSpeakers();
+        renderSpeakers();
+    }
+
+    function removeSpeaker(index) {
+        if (speakers.length <= MIN_SPEAKERS) return;
+        if (!confirm(`Xóa người nói ${index + 1}?`)) return;
+        speakers.splice(index, 1);
+        saveSpeakers();
+        renderSpeakers();
+    }
+
+    function applySheetSpeakers(shdk) {
+        const fromSheet = [];
+        for (let i = 1; i <= 6; i++) {
+            const speaker = (shdk[`speaker${i}`] || '').trim();
+            const eva = (shdk[`eva${i}`] || '').trim();
+            if (speaker || eva) {
+                fromSheet.push({
+                    speaker,
+                    eva,
+                    project: speakers[i - 1]?.project || '',
+                    speakname: speakers[i - 1]?.speakname || '',
+                });
+            }
+        }
+        if (fromSheet.length > 0) {
+            speakers = fromSheet;
+            saveSpeakers();
+            renderSpeakers();
+        }
+    }
+
+    function initEditableTable() {
+        let saved = {};
+        try {
+            saved = JSON.parse(localStorage.getItem(TABLE_STORAGE_KEY) || '{}');
+        } catch (e) {
+            saved = {};
+        }
+
+        const rows = document.querySelectorAll('#table tr');
+        rows.forEach((row, ri) => {
+            if (ri === 0) return;
+
+            row.querySelectorAll('td').forEach((td, ci) => {
+                if (td.querySelector('img[src="qr.jpg"]')) return;
+                if (td.querySelector('#speaker-intro-list, #speaker-pair-list, #speaker-prepared-list, #speaker-eval-list')) {
+                    return;
+                }
+
+                const id = `r${ri}c${ci}`;
+                td.dataset.cellId = id;
+                td.contentEditable = 'true';
+                td.classList.add('editable-cell');
+                td.setAttribute('spellcheck', 'false');
+
+                if (saved[id]) {
+                    td.innerHTML = saved[id];
+                }
+
+                td.addEventListener('blur', () => {
+                    saved[id] = td.innerHTML;
+                    localStorage.setItem(TABLE_STORAGE_KEY, JSON.stringify(saved));
+                });
+
+                td.addEventListener('input', () => {
+                    saved[id] = td.innerHTML;
+                    localStorage.setItem(TABLE_STORAGE_KEY, JSON.stringify(saved));
+                });
+            });
+        });
+    }
+
+    function resetTableEdits() {
+        if (!confirm('Xóa toàn bộ chỉnh sửa trực tiếp trên bảng?')) return;
+        localStorage.removeItem(TABLE_STORAGE_KEY);
+        localStorage.removeItem(SPEAKERS_STORAGE_KEY);
+        location.reload();
+    }
+
+    function onSHDKChanged() {
+        let shdk = JSON.parse($('#select-number').val());
+
+        $('#shdk-number').toArray().forEach(element => {
+            element.textContent = shdk.shdk.slice(5);
+        });
+
+        onSubjectChanged(shdk.subject);
+        onToDChanged(shdk.tod);
+        onGamerChanged(shdk.gamer);
+        onTimerChanged(shdk.timer);
+        onAhCounterChanged(shdk.ahcounter);
+        onGrammarianChanged(shdk.grammarian);
+        onTopicmasterChanged(shdk.topicmaster);
+        onEvaTopicmasterChanged(shdk.evatopicmaster);
+        onGEChanged(shdk.ge);
+        applySheetSpeakers(shdk);
+    }
+
+    function onSubjectChanged(val) {
+        if (val) {
+            $('#input-subject').val(val);
+        }
+        $('#shdk-subject').toArray().forEach(element => {
+            element.textContent = $('#input-subject').val();
+        });
+        localStorage.setItem('subject', $('#input-subject').val());
+    }
+
+    function onToDChanged(val) {
+        if (val) {
+            $('#input-tod').val(val);
+        }
+        $('[id=shdk-tod]').toArray().forEach(element => {
+            element.textContent = $('#input-tod').val();
+        });
+        localStorage.setItem('tod', $('#input-tod').val());
+    }
+
+    function onGamerChanged(val) {
+        if (val) {
+            $('#input-gamer').val(val);
+        }
+        $('#shdk-gamer').toArray().forEach(element => {
+            element.textContent = $('#input-gamer').val();
+        });
+        localStorage.setItem('gamer', $('#input-gamer').val());
+    }
+
+    function onTimerChanged(val) {
+        if (val) {
+            $('#input-timer').val(val);
+        }
+        $('[id=shdk-timer]').toArray().forEach(element => {
+            element.textContent = $('#input-timer').val();
+        });
+        localStorage.setItem('timer', $('#input-timer').val());
+    }
+
+    function onAhCounterChanged(val) {
+        if (val) {
+            $('#input-ahcounter').val(val);
+        }
+        $('[id=shdk-ahcounter]').toArray().forEach(element => {
+            element.textContent = $('#input-ahcounter').val();
+        });
+        localStorage.setItem('ahcounter', $('#input-ahcounter').val());
+    }
+
+    function onGrammarianChanged(val) {
+        if (val) {
+            $('#input-grammarian').val(val);
+        }
+        $('[id=shdk-grammarian]').toArray().forEach(element => {
+            element.textContent = $('#input-grammarian').val();
+        });
+        localStorage.setItem('grammarian', $('#input-grammarian').val());
+    }
+
+    function onTopicmasterChanged(val) {
+        if (val) {
+            $('#input-topicmaster').val(val);
+        }
+        $('[id=shdk-topicmaster]').toArray().forEach(element => {
+            element.textContent = $('#input-topicmaster').val();
+        });
+        localStorage.setItem('topicmaster', $('#input-topicmaster').val());
+    }
+
+    function onEvaTopicmasterChanged(val) {
+        if (val) {
+            $('#input-evatopicmaster').val(val);
+        }
+        $('#shdk-evatopicmaster').toArray().forEach(element => {
+            element.textContent = $('#input-evatopicmaster').val();
+        });
+        localStorage.setItem('evatopicmaster', $('#input-evatopicmaster').val());
+    }
+
+    function onGEChanged(val) {
+        if (val) {
+            $('#input-ge').val(val);
+        }
+        $('#shdk-ge').toArray().forEach(element => {
+            element.textContent = $('#input-ge').val();
+        });
+        localStorage.setItem('ge', $('#input-ge').val());
+    }
+
+    function changeDateFormat(dateString) {
+        const months = {
+            "jan": "01",
+            "feb": "02",
+            "mar": "03",
+            "apr": "04",
+            "may": "05",
+            "jun": "06",
+            "jul": "07",
+            "aug": "08",
+            "sep": "09",
+            "oct": "10",
+            "nov": "11",
+            "dec": "12"
+        };
+
+        // Kiểm tra xem dateString có tồn tại và có định dạng hợp lệ không
+        if (!dateString || typeof dateString !== 'string') {
+            return null; // hoặc return một giá trị mặc định
+        }
+
+        const [day, month, year] = dateString.split('-');
+
+        // Kiểm tra xem day, month, year có tồn tại hay không
+        if (!day || !month || !year) {
+            console.error('Incomplete date string:', dateString);
+            return null;
+        }
+
+        // Thêm số 0 vào trước ngày nếu cần
+        const dayWithLeadingZero = day.padStart(2, '0');
+
+        // Chuyển tháng sang số
+        const monthNumber = months[month.toLowerCase()];
+
+        // Kiểm tra xem tháng có hợp lệ không
+        if (!monthNumber) {
+            console.error('Invalid month:', month);
+            return null;
+        }
+
+        return `${dayWithLeadingZero}/${monthNumber}/${year}`;
+    }
+
+    function parseSHDKDate(shdkDateString) {
+        // Kiểm tra nếu chuỗi không tồn tại hoặc không phải là chuỗi
+        if (!shdkDateString || typeof shdkDateString !== 'string') {
+            return null; // Trả về null để xử lý sau
+        }
+
+        const [day, month, year] = shdkDateString.split('-');
+
+        if (!day || !month || !year) {
+            console.error('Incomplete date:', shdkDateString);
+            return null;
+        }
+
+        const months = {
+            "jan": "01",
+            "feb": "02",
+            "mar": "03",
+            "apr": "04",
+            "may": "05",
+            "jun": "06",
+            "jul": "07",
+            "aug": "08",
+            "sep": "09",
+            "oct": "10",
+            "nov": "11",
+            "dec": "12"
+        };
+
+        const monthLowerCase = month.toLowerCase();
+        const monthNumber = months[monthLowerCase];
+
+        if (!monthNumber) {
+            console.error('Invalid month:', month);
+            return null;
+        }
+
+        const formattedDate = `${year}-${monthNumber}-${day.padStart(2, '0')}`;
+        return new Date(formattedDate);
+    }
+    function findClosestSHDK() {
+        const currentDate = new Date();
+        let closestSHDK = null;
+        let closestDifference = Infinity;
+
+        shdks.forEach(item => {
+            const shdkDate = parseSHDKDate(item.time);
+
+            if (!shdkDate) {
+                return; // Bỏ qua nếu không thể chuyển đổi ngày
+            }
+
+            const difference = Math.abs(currentDate - shdkDate);
+
+            if (difference < closestDifference) {
+                closestDifference = difference;
+                closestSHDK = item;
+            }
+        });
+
+        return closestSHDK;
+    }
+</script>
