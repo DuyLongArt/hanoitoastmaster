@@ -5,6 +5,7 @@ import About from "./pages/About";
 import WhyUs from "./pages/WhyUs";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import MemberTools from "./pages/MemberTools";
 import SHDK from "./pages/SHDK";
 import Member from "./pages/Member";
 import SecretSanta from "./pages/SecretSanta";
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/vi-sao" element={<WhyUs />} />
         <Route path="/hoi-dap" element={<FAQ />} />
         <Route path="/lien-he" element={<Contact />} />
+        <Route path="/cong-cu-ho-tro" element={<MemberTools />} />
         <Route path="/shdk" element={<SHDK />} />
         <Route path="/member" element={<Member />} />
         <Route path="/secret-santa" element={<SecretSanta />} />
